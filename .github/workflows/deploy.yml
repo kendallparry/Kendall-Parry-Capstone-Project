@@ -19,5 +19,5 @@ jobs:
           cd /home/ec2-user/Kendall-Parry-Capstone-Project
           git pull origin main
           source venv/bin/activate
-          pip install -r requirements.txt
+          pip install -r application/requirements.txt
           sudo systemctl restart flask
