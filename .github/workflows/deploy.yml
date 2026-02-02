@@ -19,6 +19,7 @@ jobs:
           cd /home/ec2-user/Kendall-Parry-Capstone-Project
           git pull origin main
           source venv/bin/activate
-          pip install -r application/requirements.txt
+          cd /home/ec2-user/Kendall-Parry-Capstone-Project/application
+          pip install -r requirements.txt
           pkill gunicorn || true
           nohup gunicorn -b 0.0.0.0:8000 run:app > gunicorn.log 2>&1 &
