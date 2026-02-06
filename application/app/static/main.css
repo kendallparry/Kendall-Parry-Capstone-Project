@@ -22,3 +22,11 @@ h3 {
 #main{
     height: 100%;
 }
+
+hr {
+    border: none; 
+    height: 3px;
+    background-color: #3E2865; 
+    width: 100%; 
+    margin: 20px auto; 
+  }
