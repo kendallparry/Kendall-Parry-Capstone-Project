@@ -12,11 +12,16 @@ h3 {
 }
 
 #upcoming{
-
+    ul {
+        padding-left: 50px;
+        align-self: top;
+    }
 }
 
 #dashboard{
-    
+    .btn {
+        padding: 5px;
+    }
 }
 
 #main{
