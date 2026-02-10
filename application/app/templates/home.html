@@ -32,16 +32,16 @@
                 <div class = "row" id = "dashboard">
                     <h3>Your Dashboard:</h3>
                     <div class="d-grid gap-2 col-6 mx-auto p-4">
-                        <button type="button" class="btn btn-light"><img src="../static/icons/calendar.svg" width="30%"><br>Events</button>
-                        <button type="button" class="btn btn-light" style="margin-top: 10%;"><img src="../static/icons/finances.svg" width="30%"><br>Finances</button>
+                        <button type="button" class="btn btn-light" id="events" onclick="redirect()"><img src="../static/icons/calendar.svg" width="30%"><br>Events</button>
+                        <button type="button" class="btn btn-light" style="margin-top: 10%;" id="finances"><img src="../static/icons/finances.svg" width="30%"><br>Finances</button>
                     </div>
                     <div class="d-grid gap-2 col-6 mx-auto p-4">
-                        <button type="button" class="btn btn-light"><img src="../static/icons/resources.svg" width="30%"><br>Resources</button>
-                        <button type="button" class="btn btn-light" style="margin-top: 10%;"><img src="../static/icons/minutes.svg" width="30%"><br>Minutes</button>
+                        <button type="button" class="btn btn-light" id="resources"><img src="../static/icons/resources.svg" width="30%"><br>Resources</button>
+                        <button type="button" class="btn btn-light" style="margin-top: 10%;" id="minutes"><img src="../static/icons/minutes.svg" width="30%"><br>Minutes</button>
                     </div>
                     <!-- <div class="col">
-                        <button type="button" class="btn btn-light">Chat</button>
-                        <button type="button" class="btn btn-light">Tasks</button>
+                        <button type="button" class="btn btn-light" id="chat">Chat</button>
+                        <button type="button" class="btn btn-light" id="tasks">Tasks</button>
                     </div> -->
                 </div>
             </div>
@@ -63,6 +63,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/home.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bones - Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container-fluid align-items-center">
+            <span class="navbar-brand"><img src="../static/BareBonesLogo_White.svg" width=150px></span>
+            <span class="nav-item" href="#"> <img src="../static/icons/settings.svg"></span>
+        </div>
+    </nav>
+    <div class="container-fluid" id="main">
+        <div class="row">
+            <div class="col p-3">
+                <h3>Bare Bones Events:</h3>
+                <ul>
+                    <li>Saturday, February 7</li>
+                    <ul>
+                        <li>10:00am - 12:00pm -- Sketch & Improv Auditions</li>
+                        <li>4:30pm - 6:00pm -- Improv Callbacks</li>
+                    </ul>
+                    <li>Sunday, February 8</li>
+                    <ul>
+                        <li>10:00am - 12:00pm -- Sketch Callbacks</li>
+                        <li>4:00pm - 5:30pm -- Improv Practice</li>
+                    </ul>
+                </ul>
+            </div>
+            <div class="d-grid gap-2 col-3 mx-auto p-4">
+                <button type="button" class="btn btn-primary" id="add" data-bs-toggle="modal"
+                    data-bs-target="#addModal">Add Event</button>
+                <button type="button" class="btn btn-primary" id="edit" style="margin-top: 10%;" data-bs-toggle="modal"
+                    data-bs-target="#editModal">Edit Event</button>
+                <button type="button" class="btn btn-primary" id="remove" style="margin-top: 10%;"
+                    data-bs-toggle="modal" data-bs-target="#removeModal">Remove Event</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="modal fade modal-lg" id="addModal" data-bs-backdrop="static" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Event:</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                  <label for="eventTitle" class="form-label">Event Title: </label>
+                                  <input type="text" class="form-control" id="eventTitle">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="eventDate" class="form-label">Date: </label>
+                                    <input type="text" class="form-control" id="eventDate">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="eventTime" class="form-label">Time: </label>
+                                    <input type="text" class="form-control" id="eventDate">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="eventLocation" class="form-label">Location: </label>
+                                    <input type="text" class="form-control" id="eventLocation">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="eventNotes" class="form-label">Notes: </label>
+                                    <textarea class="form-control" id="eventNotes" rows="5"></textarea>
+                                  </div>
+                              </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="eventSubmission">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade modal-lg" id="editModal" data-bs-backdrop="static" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Event:</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Form goes here! (use datalists for selection)</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade modal-lg" id="removeModal" data-bs-backdrop="static" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Remove Event:</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Form goes here! (use datalists for selection)</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/events.js"></script>
+</body>
+
+</html>

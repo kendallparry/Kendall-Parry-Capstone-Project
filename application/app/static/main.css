@@ -35,3 +35,16 @@ hr {
     width: 100%; 
     margin: 20px auto; 
   }
+
+.btn-primary {
+    --bs-btn-color: #E9E0FA;
+    --bs-btn-bg: #3E2865;
+    --bs-btn-border-color: #3E2865;
+    --bs-btn-hover-color: #3E2865;
+    --bs-btn-hover-bg: #E9E0FA;
+    --bs-btn-hover-border-color: #3E2865;
+    --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+    --bs-btn-active-color: #3E2865;
+    --bs-btn-active-bg: #a089c9;
+    --bs-btn-active-border-color: #3E2865;
+}
