@@ -2,3 +2,4 @@
 venv/
 *.pyc
 github_ec2*
+.env

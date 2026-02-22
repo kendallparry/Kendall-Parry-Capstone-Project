@@ -20,18 +20,7 @@
         <div class="row">
             <div class="col p-3" id="eventsList">
                 <h3>Bare Bones Events:</h3>
-                <ul>
-                    <!-- <li>Saturday, February 7</li>
-                    <ul>
-                        <li>10:00am - 12:00pm -- Sketch & Improv Auditions</li>
-                        <li>4:30pm - 6:00pm -- Improv Callbacks</li>
-                    </ul>
-                    <li>Sunday, February 8</li>
-                    <ul>
-                        <li>10:00am - 12:00pm -- Sketch Callbacks</li>
-                        <li>4:00pm - 5:30pm -- Improv Practice</li>
-                    </ul> -->
-                </ul>
+                <ul></ul>
             </div>
             <div class="d-grid gap-2 col-3 mx-auto p-4">
                 <button type="button" class="btn btn-primary" id="add" data-bs-toggle="modal"
@@ -56,11 +45,15 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventDate" class="form-label">Date: </label>
-                                    <input type="text" class="form-control" id="eventDate">
+                                    <input type="date" class="form-control" id="eventDate">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="eventTime" class="form-label">Time: </label>
-                                    <input type="text" class="form-control" id="eventTime">
+                                    <label for="startTime" class="form-label">Start Time: </label>
+                                    <input type="time" class="form-control" id="startTime">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="endTime" class="form-label">End Time: </label>
+                                    <input type="time" class="form-control" id="endTime">
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventLocation" class="form-label">Location: </label>
@@ -87,7 +80,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form id="editForm">
                                 <div class="mb-3">
                                     <label for="pickEvent" class="form-label">Event to Modify: </label>
                                     <input list="datalistOptions" class="form-control" id="pickEvent">
@@ -103,11 +96,15 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventDate" class="form-label">Date: </label>
-                                    <input type="text" class="form-control" id="eventDate">
+                                    <input type="date" class="form-control" id="eventDate">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="eventTime" class="form-label">Time: </label>
-                                    <input type="text" class="form-control" id="eventTime">
+                                    <label for="startTime" class="form-label">Start Time: </label>
+                                    <input type="time" class="form-control" id="startTime">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="endTime" class="form-label">End Time: </label>
+                                    <input type="time" class="form-control" id="endTime">
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventLocation" class="form-label">Location: </label>
