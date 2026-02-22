@@ -30,6 +30,51 @@ def get_events():
     
     return jsonify(events)
 
+@main.route("/api/events", methods=["POST"])
+def create_event():
+    data = request.get_json()
+    conn = get_db()
+    try: 
+        cursor = conn.cursor()
+        cursor.execute("""
+                       INSERT INTO events (title, date, start_time, end_time, location, notes)
+                       VALUES (%s, %s, %s, %s, %s, %s)
+                       """, (data['title'], data['date'], data['start_time'], data['end_time'], data['location'], data['notes']))
+        conn.commit()
+        event_id = cursor.lastrowid
+    finally:
+        cursor.close()
+        conn.close()
+    return jsonify({'event_id': event_id}), 201
+
+@main.route("/api/events/<int:event_id>", methods=["PUT"])
+def update_event(event_id):
+    data = request.get_json()
+    conn = get_db()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE events SET title=%s, date=%s, start_time=%s, end_time=%s, location=%s, notes=%s
+            WHERE event_id=%s
+        """, (data['title'], data['date'], data['start_time'], data['end_time'], data['location'], data['notes'], event_id))
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
+    return jsonify({'success': True})
+
+@main.route("/api/events/<int:event_id>", methods=["DELETE"])
+def delete_event(event_id):
+    conn = get_db()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM events WHERE event_id=%s", (event_id,))
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
+    return jsonify({'success': True})
+
 @main.route("/")
 def home():
     return render_template('home.html')
