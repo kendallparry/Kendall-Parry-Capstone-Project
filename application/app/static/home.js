@@ -19,7 +19,7 @@ async function loadUpcomingEvents() {
         const itemsUl = document.createElement('ul');
         date.items.forEach(item => {
             const li = document.createElement('li');
-            li.textContent = `${item.startTime} - ${item.endTime} -- ${item.title}`;
+            li.textContent = `${item.title}`;
             itemsUl.appendChild(li);
         });
         upcomingUl.appendChild(itemsUl);
