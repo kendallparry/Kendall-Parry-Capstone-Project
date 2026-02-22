@@ -102,34 +102,40 @@ function updateEvents(){
 } 
 const eventSubmissionButton = document.getElementById("eventSubmission");
 
-eventSubmissionButton.addEventListener("click", function(e){
+eventSubmissionButton.addEventListener("click", async function(e){
     e.preventDefault();
 
     const title = document.querySelector('#addModal #eventTitle').value;
-    const date = getDateString(document.querySelector('#addModal #eventDate').value);
-    const startTime = getTimeString(document.querySelector('#addModal #startTime').value);
-    const endTime = getTimeString(document.querySelector('#addModal #endTime').value);
+    const date = ocument.querySelector('#addModal #eventDate').value;
+    const start_time = document.querySelector('#addModal #startTime').value;
+    const end_time = document.querySelector('#addModal #endTime').value;
     const location = document.querySelector('#addModal #eventLocation').value;
     const notes = document.querySelector('#addModal #eventNotes').value;
 
-    let dateItem = events.find(e => e.date === date);
-    if (!dateItem) {
-        dateItem = {
-            id: nextIndex++,
-            date: date,
-            items: []
-        };
-        events.push(dateItem);
-        events.sort((a, b) => new Date(a.date) - new Date(b.date));
-    }
-
-    dateItem.items.push({
-        startTime: startTime,
-        endTime: endTime,
-        title: title,
-        location: location,
-        notes:notes
+    await fetch('/api/events', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ title, date, start_time, end_time, location, notes })
     });
+
+    // let dateItem = events.find(e => e.date === date);
+    // if (!dateItem) {
+    //     dateItem = {
+    //         id: nextIndex++,
+    //         date: date,
+    //         items: []
+    //     };
+    //     events.push(dateItem);
+    //     events.sort((a, b) => new Date(a.date) - new Date(b.date));
+    // }
+
+    // dateItem.items.push({
+    //     startTime: startTime,
+    //     endTime: endTime,
+    //     title: title,
+    //     location: location,
+    //     notes:notes
+    // });
 
     document.querySelector('#addModal #eventTitle').value = "";
     document.querySelector('#addModal #eventDate').value = "";
@@ -138,7 +144,7 @@ eventSubmissionButton.addEventListener("click", function(e){
     document.querySelector('#addModal #eventLocation').value = "";
     document.querySelector('#addModal #eventNotes').value = "";
 
-    fillEvents();
+    await loadEvents();
     const modalInstance = bootstrap.Modal.getInstance(document.getElementById("addModal"));
     modalInstance.hide();
 });
@@ -176,53 +182,67 @@ document.getElementById('pickEvent').addEventListener('input', function(){
     }
 });
 
-document.getElementById('saveChanges').addEventListener('click', function() {
+document.getElementById('saveChanges').addEventListener('click', async function() {
     const modal = document.getElementById('editModal');
     const dateId = parseInt(modal.dataset.editDateId);
     const itemIndex = parseInt(modal.dataset.editItemIndex);
+    event_id = events.find(e=> e.id === dateId).items[itemIndex].event_id;
 
-    const dateItem = events.find(e => e.id === dateId);
-    const newTitle = modal.querySelector('#eventTitle').value;
-    const newDate = getDateString(modal.querySelector('#eventDate').value);
-    const newStartTime = getTimeString(modal.querySelector('#startTime').value);
-    const newEndTime = getTimeString(modal.querySelector('#endTime').value);
-    const newLocation = modal.querySelector('#eventLocation').value;
-    const newNotes = modal.querySelector('#eventNotes').value;
+    await fetch(`/api/events/${event_id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            title: modal.querySelector('#eventTitle').value,
+            date: modal.querySelector('#eventDate').value,
+            start_time: modal.querySelector('#startTime').value,
+            end_time: modal.querySelector('#endTime').value,
+            location: modal.querySelector('#eventLocation').value,
+            notes: modal.querySelector('#eventNotes').value
+        })
+    });
 
-    if (dateItem.date !== newDate){
-        dateItem.items.splice(itemIndex,1);
-        if (dateItem.items.length === 0){
-            events = events.filter(e => e.id !== dateId);
-        }
+    // const dateItem = events.find(e => e.id === dateId);
+    // const newTitle = modal.querySelector('#eventTitle').value;
+    // const newDate = getDateString(modal.querySelector('#eventDate').value);
+    // const newStartTime = getTimeString(modal.querySelector('#startTime').value);
+    // const newEndTime = getTimeString(modal.querySelector('#endTime').value);
+    // const newLocation = modal.querySelector('#eventLocation').value;
+    // const newNotes = modal.querySelector('#eventNotes').value;
 
-        let newDateItem = events.find(e => e.date === newDate);
-        if (!newDateItem){
-            newDateItem = {
-                id: nextIndex++,
-                date: newDate,
-                items: []
-            };
-            events.push(newDateItem);
-            events.sort((a, b) => new Date(a.date) - new Date(b.date));
-        }
+    // if (dateItem.date !== newDate){
+    //     dateItem.items.splice(itemIndex,1);
+    //     if (dateItem.items.length === 0){
+    //         events = events.filter(e => e.id !== dateId);
+    //     }
 
-        newDateItem.items.push({
-            startTime: newStartTime,
-            endTime: newEndTime,
-            title: newTitle,
-            location: newLocation,
-            notes: newNotes
-        });
-    }
-    else{
-        dateItem.items[itemIndex] = {
-            startTime: newStartTime,
-            endTime: newEndTime,
-            title: newTitle,
-            location: newLocation,
-            notes: newNotes
-        }
-    }
+    //     let newDateItem = events.find(e => e.date === newDate);
+    //     if (!newDateItem){
+    //         newDateItem = {
+    //             id: nextIndex++,
+    //             date: newDate,
+    //             items: []
+    //         };
+    //         events.push(newDateItem);
+    //         events.sort((a, b) => new Date(a.date) - new Date(b.date));
+    //     }
+
+    //     newDateItem.items.push({
+    //         startTime: newStartTime,
+    //         endTime: newEndTime,
+    //         title: newTitle,
+    //         location: newLocation,
+    //         notes: newNotes
+    //     });
+    // }
+    // else{
+    //     dateItem.items[itemIndex] = {
+    //         startTime: newStartTime,
+    //         endTime: newEndTime,
+    //         title: newTitle,
+    //         location: newLocation,
+    //         notes: newNotes
+    //     }
+    // }
 
     document.querySelector('#editModal #eventTitle').value = "";
     document.querySelector('#editModal #eventDate').value = "";
@@ -232,27 +252,30 @@ document.getElementById('saveChanges').addEventListener('click', function() {
     document.querySelector('#editModal #eventNotes').value = "";
     document.getElementById('pickEvent').value = "";
 
-    fillEvents();
+    await loadEvents();
     const modalInstance = bootstrap.Modal.getInstance(modal);
     modalInstance.hide();
 });
 
 
-document.getElementById('deleteEvent').addEventListener('click', function() {
+document.getElementById('deleteEvent').addEventListener('click', async function() {
     const modal = document.getElementById('editModal');
     const dateId = parseInt(modal.dataset.editDateId);
     const itemIndex = parseInt(modal.dataset.editItemIndex);
+    event_id = events.find(e=> e.id === dateId).items[itemIndex].event_id;
 
     if (!confirm("Are you sure you want to delete this event?")){
         return;
     }
 
-    const dateItem = events.find(e => e.id === dateId);
-    dateItem.items.splice(itemIndex,1);
+    await fetch(`/api/events/${event_id}`, { method: 'DELETE' });
 
-    if (dateItem.items.length === 0){
-        events = events.filter(e => e.id !== dateId);
-    }
+    // const dateItem = events.find(e => e.id === dateId);
+    // dateItem.items.splice(itemIndex,1);
+
+    // if (dateItem.items.length === 0){
+    //     events = events.filter(e => e.id !== dateId);
+    // }
 
     document.querySelector('#editModal #eventTitle').value = "";
     document.querySelector('#editModal #eventDate').value = "";
@@ -262,7 +285,7 @@ document.getElementById('deleteEvent').addEventListener('click', function() {
     document.querySelector('#editModal #eventNotes').value = "";
     document.getElementById('pickEvent').value = "";
 
-    fillEvents();
+    await loadEvents();
     const modalInstance = bootstrap.Modal.getInstance(modal);
     modalInstance.hide();
 });
