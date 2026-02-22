@@ -106,7 +106,7 @@ eventSubmissionButton.addEventListener("click", async function(e){
     e.preventDefault();
 
     const title = document.querySelector('#addModal #eventTitle').value;
-    const date = ocument.querySelector('#addModal #eventDate').value;
+    const date = document.querySelector('#addModal #eventDate').value;
     const start_time = document.querySelector('#addModal #startTime').value;
     const end_time = document.querySelector('#addModal #endTime').value;
     const location = document.querySelector('#addModal #eventLocation').value;
