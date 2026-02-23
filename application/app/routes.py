@@ -84,5 +84,5 @@ def events():
     return render_template('events.html')
 
 @main.route("/resources")
-def events():
+def resources():
     return render_template('resources.html')
