@@ -82,3 +82,7 @@ def home():
 @main.route("/events")
 def events():
     return render_template('events.html')
+
+@main.route("/resources")
+def events():
+    return render_template('resources.html')

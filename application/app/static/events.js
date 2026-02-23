@@ -79,6 +79,7 @@ document.getElementById('pickEvent').addEventListener('input', function(){
 
     let selectedEvent;
     let selectedDateId;
+    let selectedDate;
     let selectedItemIndex;
 
     events.forEach(date => {
