@@ -112,7 +112,7 @@ document.getElementById('saveChanges').addEventListener('click', async function(
     const modal = document.getElementById('editModal');
     const dateId = parseInt(modal.dataset.editDateId);
     const itemIndex = parseInt(modal.dataset.editItemIndex);
-    event_id = events.find(e=> e.id === dateId).items[itemIndex].event_id;
+    const event_id = events.find(e=> e.id === dateId).items[itemIndex].event_id;
 
     await fetch(`/api/events/${event_id}`, {
         method: 'PUT',
@@ -145,7 +145,7 @@ document.getElementById('deleteEvent').addEventListener('click', async function(
     const modal = document.getElementById('editModal');
     const dateId = parseInt(modal.dataset.editDateId);
     const itemIndex = parseInt(modal.dataset.editItemIndex);
-    event_id = events.find(e=> e.id === dateId).items[itemIndex].event_id;
+    const event_id = events.find(e=> e.id === dateId).items[itemIndex].event_id;
 
     if (!confirm("Are you sure you want to delete this event?")){
         return;
