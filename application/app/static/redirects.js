@@ -1,6 +1,6 @@
 const logoButton = document.getElementById("logoButton");
 logoButton.addEventListener('click', function() {
-    window.location.href = '/home';
+    window.location.href = '/';
 })
 
 const settingsButton = document.getElementById("settingsButton");
