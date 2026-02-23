@@ -4,6 +4,6 @@ logoButton.addEventListener('click', function() {
 })
 
 const settingsButton = document.getElementById("settingsButton");
-settingsButtonButton.addEventListener('click', function() {
+settingsButton.addEventListener('click', function() {
     window.location.href = '/settings';
 })
