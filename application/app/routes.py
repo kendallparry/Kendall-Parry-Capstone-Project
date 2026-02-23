@@ -90,3 +90,11 @@ def resources():
 @main.route("/settings")
 def settings():
     return render_template('settings.html')
+
+@main.route("/finances")
+def finances():
+    return render_template('finances.html')
+
+@main.route("/minutes")
+def minutes():
+    return render_template('minutes.html')

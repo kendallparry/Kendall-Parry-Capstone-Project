@@ -21,3 +21,17 @@ if (resourcesButton != null){
         window.location.href = '/resources';
     })
 }
+
+const financesButton = document.getElementById("financesButton");
+if (financesButton != null){
+    financesButton.addEventListener('click', function() {
+        window.location.href = '/finances';
+    })
+}
+
+const minutesButton = document.getElementById("minutesButton");
+if (minutesButton != null){
+    minutesButton.addEventListener('click', function() {
+        window.location.href = '/minutes';
+    })
+}
