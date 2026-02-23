@@ -1,10 +1,5 @@
 import { getTimeString, getDateString, loadEvents } from './utils.js';
 
-const eventsButton = document.getElementById("events");
-eventsButton.addEventListener('click', function() {
-    window.location.href = '/events';
-})
-
 async function loadUpcomingEvents() {
     const data = await loadEvents();
 
