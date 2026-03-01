@@ -1,9 +1,11 @@
-from flask import Blueprint, render_template, jsonify, request
+from flask import Blueprint, render_template, jsonify, request, send_file
 import mysql.connector
 import os
+from s3 import *
 
 main = Blueprint("main", __name__)
 
+# RDS ROUTES
 def get_db():
     return mysql.connector.connect(
         host=os.getenv('DB_HOST'),
@@ -74,6 +76,30 @@ def delete_event(event_id):
         cursor.close()
         conn.close()
     return jsonify({'success': True})
+
+# S3 ROUTES
+@main.route("/<folder>/files", methods=['GET'])
+def get_files(folder):
+    return jsonify(list_all_files(folder))
+
+@main.route("/upload/<folder>", methods=['POST'])
+def upload_files(folder):
+    f = request.files['resourceFile']
+    upload(f, f.filename, folder)
+    return jsonify({'message': 'Uploaded successfully'}), 200
+
+@main.route("/download/<folder>/<filename>", methods=['GET'])
+def download_files(folder, filename):
+    output = download(filename, folder)
+    return send_file(output, as_attachment=True)
+
+@main.route("/delete/<folder>", methods=['DELETE'])
+def delete_resource(folder):
+    key = request.json.get('key')
+    delete_file(key, folder)
+    return jsonify({'message': 'Deleted'}), 200
+
+# MAIN ROUTES
 
 @main.route("/")
 def home():
