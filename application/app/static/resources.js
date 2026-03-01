@@ -3,7 +3,7 @@ const folder = 'resources';
 async function loadResources() {
     const res = await fetch(`/${folder}/files`);
     const keys = await res.json();
-    const ul = document.querySelector('#eventsList ul');
+    const ul = document.querySelector('#resourcesList ul');
     ul.innerHTML = '';
 
     const datalist = document.getElementById('datalistOptions');
@@ -22,7 +22,7 @@ async function loadResources() {
     });
 }
 
-document.getElementById('eventSubmission').addEventListener('click', async () => {
+document.getElementById('resourceSubmission').addEventListener('click', async () => {
     const file = document.getElementById('resourceFile').files[0];
     if (!file) return alert('Please select a file.');
 
@@ -32,6 +32,9 @@ document.getElementById('eventSubmission').addEventListener('click', async () =>
     await fetch(`/upload/${folder}`, { method: 'POST', body: formData });
     bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
     loadResources();
+
+    document.querySelector('#addModal #resourceName').value = "";
+    document.querySelector('#addModal #resourceFile').value = "";
 });
 
 document.getElementById('deleteEvent').addEventListener('click', async () => {
@@ -46,6 +49,8 @@ document.getElementById('deleteEvent').addEventListener('click', async () => {
 
     bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
     loadResources();
+
+    document.getElementById('pickResource').value = "";
 });
 
 loadResources();
