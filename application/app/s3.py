@@ -18,9 +18,9 @@ def list_all_files(folder):
     contents = []
     response = s3.list_objects(Bucket=BUCKET, Prefix=f"{folder}/")
     for item in response.get('Contents', []):
-        # Strip the folder prefix so you just get the filename
-        item['Key'] = item['Key'].replace(f"{folder}/", "", 1)
-        contents.append(item)
+        key = item['Key'].replace(f"{folder}/", "", 1)
+        if key:
+            contents.append(key)
     return contents
 
 def delete_file(file_name, folder):
