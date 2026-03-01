@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, send_file
 import mysql.connector
 import os
-from s3 import *
+from .s3 import *
 
 main = Blueprint("main", __name__)
 
