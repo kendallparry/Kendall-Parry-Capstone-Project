@@ -34,7 +34,7 @@ jobs:
           DB_USER=$DB_USER
           DB_PASSWORD=$DB_PASSWORD
           DB_NAME=$DB_NAME
-          S3_NAME=mybones-bucket
+          S3_BUCKET=mybones-bucket
           EOF
 
           pkill gunicorn || true
