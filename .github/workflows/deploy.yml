@@ -25,9 +25,8 @@ jobs:
         script: |
           cd /home/ec2-user/Kendall-Parry-Capstone-Project
           git pull origin main
-          source venv/bin/activate
+          venv/bin/pip install -r application/requirements.txt
           cd /home/ec2-user/Kendall-Parry-Capstone-Project/application
-          pip install -r requirements.txt
 
           cat > .env << EOF
           DB_HOST=$DB_HOST
