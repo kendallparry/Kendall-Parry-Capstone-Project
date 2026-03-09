@@ -17,10 +17,56 @@
         </div>
     </nav>
     <div class="container-fluid" id="main">
-        <p>finances go here</p>
+        <div class="row">
+            <div class="col p-3" id="resourcesList">
+                <h3>Submitted Receipts:</h3>
+                <ul></ul>
+            </div>
+            <div class="d-grid gap-2 col-3 mx-auto p-4">
+                <button type="button" class="btn btn-primary" id="add" data-bs-toggle="modal"
+                    data-bs-target="#addModal">Upload Receipt</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="modal fade modal-lg" id="addModal" data-bs-backdrop="static" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Upload Receipt:</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="resourceName" class="form-label">Reason For Purchase: </label>
+                                    <input type="text" class="form-control" id="resourceName">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="purchaserName" class="form-label">Purchaser Name: </label>
+                                    <input type="text" class="form-control" id="purchaserName">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="purchaserMailbox" class="form-label">Purchaser Campus Mailbox Number: </label>
+                                    <input type="text" class="form-control" id="purchaserMailbox">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="resourceFile" class="form-label">Upload Receipt Here: </label>
+                                    <input type="file" class="form-control" id="resourceFile">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="resourceSubmission">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script type="module" src="../static/events.js"></script> -->
+    <script type="module" src="../static/minutes.js"></script>
     <script src="../static/redirects.js"></script>
 </body>
 
