@@ -1,5 +1,5 @@
 const folder = 'finances';
-const fields = ['resourcename', 'purchasername', 'purchasermailbox'];
+const fields = ['purchasername', 'purchasermailbox'];
 
 async function loadResources() {
     const res = await fetch(`/${folder}/files`);
@@ -11,6 +11,8 @@ async function loadResources() {
         const metadataRes = await fetch(`/metadata/${folder}/${key}`);
         const metadata = await metadataRes.json();
 
+        const name = metadata[resourcename]
+
         const details = fields
             .map(field => metadata[field])
             .filter(Boolean)
@@ -20,7 +22,7 @@ async function loadResources() {
         
         const li = document.createElement('li');
         li.innerHTML = `
-            <a href="/download/${folder}/${key}">${linkText}</a>
+            <a href="/download/${folder}/${key}">${name}</a>
             ${details ? ` — ${details}` : ''}
         `;
         ul.appendChild(li);
