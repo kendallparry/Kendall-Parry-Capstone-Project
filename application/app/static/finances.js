@@ -19,7 +19,7 @@ async function loadResources() {
         const li = document.createElement('li');
         li.innerHTML = `
             <a href="/download/${folder}/${key}">${key}</a>
-            ${details ? `<small> — ${details}</small>` : ''}
+            ${details ? ` — ${details}` : ''}
         `;
         ul.appendChild(li);
     };
