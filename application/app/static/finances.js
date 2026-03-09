@@ -1,5 +1,5 @@
 const folder = 'finances';
-const metadata = ['resourcename', 'purchasername', 'purchasermailbox'];
+const fields = ['resourcename', 'purchasername', 'purchasermailbox'];
 
 async function loadResources() {
     const res = await fetch(`/${folder}/files`);
@@ -11,8 +11,8 @@ async function loadResources() {
         const metadataRes = await fetch(`/metadata/${folder}/${key}`);
         const metadata = await metadataRes.json();
 
-        const details = metadataFields
-            .map(field => meta[field])
+        const details = fields
+            .map(field => metadata[field])
             .filter(Boolean)
             .join(' | ');
 
