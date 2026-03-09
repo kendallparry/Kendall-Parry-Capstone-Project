@@ -16,9 +16,11 @@ async function loadResources() {
             .filter(Boolean)
             .join(' | ');
 
+        const linkText = details || key;
+        
         const li = document.createElement('li');
         li.innerHTML = `
-            <a href="/download/${folder}/${key}">${key}</a>
+            <a href="/download/${folder}/${key}">${linkText}</a>
             ${details ? ` — ${details}` : ''}
         `;
         ul.appendChild(li);
@@ -34,8 +36,14 @@ document.getElementById('resourceSubmission').addEventListener('click', async ()
     const purchaserName = document.querySelector('#addModal #purchaserName');
     const purchaserMailbox = document.querySelector('#addModal #purchaserMailbox');
 
+    //add timestamp to file name to prevent overwriting in bucket
+    const ext = file.name.includes('.') ? '.' + file.name.split('.').pop() : '';
+    const baseName = file.name.replace(/\.[^/.]+$/, '');
+    const uniqueFile = new File([file], `${baseName}_${Date.now()}${ext}`, { type: file.type });
+  
+
     const formData = new FormData();
-    formData.append('resourceFile', file);
+    formData.append('resourceFile', uniqueFile);
     formData.append('resourcename', resourceName.value);
     formData.append('purchasername', purchaserName.value);
     formData.append('purchasermailbox', purchaserMailbox.value);
