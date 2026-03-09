@@ -39,7 +39,7 @@ document.getElementById('resourceSubmission').addEventListener('click', async ()
     const purchaserMailbox = document.querySelector('#addModal #purchaserMailbox');
 
     const formData = new FormData();
-    formData.append('resourcefile', file);
+    formData.append('resourceFile', file);
     formData.append('resourcename', resourceName.value);
     formData.append('purchasername', purchaserName.value);
     formData.append('purchasermailbox', purchaserMailbox.value);
