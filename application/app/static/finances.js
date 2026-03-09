@@ -11,7 +11,7 @@ async function loadResources() {
         const metadataRes = await fetch(`/metadata/${folder}/${key}`);
         const metadata = await metadataRes.json();
 
-        const name = metadata[resourcename]
+        const name = metadata['resourcename']
 
         const details = fields
             .map(field => metadata[field])
