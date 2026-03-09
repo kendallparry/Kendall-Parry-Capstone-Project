@@ -11,21 +11,17 @@ async function loadResources() {
         const metadataRes = await fetch(`/metadata/${folder}/${key}`);
         const metadata = await metadataRes.json();
 
+        const details = metadataFields
+            .map(field => meta[field])
+            .filter(Boolean)
+            .join(' | ');
+
         const li = document.createElement('li');
         li.innerHTML = `
             <a href="/download/${folder}/${key}">${key}</a>
-            <p>
-                ${metadata.resourcename ? `| ${metadata.resourcename}` : ''}
-                ${metadata.purchasername ? `| ${metadata.purchasername}` : ''}
-                ${metadata.purchasermailbox ? `| ${metadata.purchasermailbox}` : ''}
-            <p>
-        
+            ${details ? `<small> — ${details}</small>` : ''}
         `;
         ul.appendChild(li);
-
-        const option = document.createElement('option');
-        option.value = key;
-        datalist.appendChild(option);
     };
 }
 
