@@ -28,6 +28,9 @@ jobs:
           venv/bin/pip install -r application/requirements.txt
           cd /home/ec2-user/Kendall-Parry-Capstone-Project/application
 
+          npm install
+          npm run build
+
           cat > .env << EOF
           DB_HOST=$DB_HOST
           DB_PORT=$DB_PORT
