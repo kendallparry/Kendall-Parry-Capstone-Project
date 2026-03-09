@@ -96,7 +96,7 @@ def download_files(folder, filename):
     return send_file(output, as_attachment=True)
 
 @main.route('/metadata/<folder>/<filename>')
-def get_metadata(folder, filename):
+def metadata(folder, filename):
     return jsonify(get_metadata(filename, folder))
 
 @main.route("/delete/<folder>", methods=['DELETE'])
