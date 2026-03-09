@@ -44,6 +44,10 @@ document.getElementById('resourceSubmission').addEventListener('click', async ()
     formData.append('purchasername', purchaserName.value);
     formData.append('purchasermailbox', purchaserMailbox.value);
 
+    for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+    }    
+
     await fetch(`/upload/${folder}`, { method: 'POST', body: formData });
     bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
     loadResources();

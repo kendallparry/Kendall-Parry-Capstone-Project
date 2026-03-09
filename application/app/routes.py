@@ -84,6 +84,8 @@ def get_files(folder):
 
 @main.route("/upload/<folder>", methods=['POST'])
 def upload_files(folder):
+    print(request.files)
+    print(request.form)
     f = request.files['resourceFile']
     upload(f, f.filename, folder, args=request.form.to_dict())
     return jsonify({'message': 'Uploaded successfully'}), 200
