@@ -1,4 +1,5 @@
 const folder = 'finances';
+const metadata = ['resourcename', 'purchasername', 'purchasermailbox'];
 
 async function loadResources() {
     const res = await fetch(`/${folder}/files`);
@@ -9,34 +10,51 @@ async function loadResources() {
     const datalist = document.getElementById('datalistOptions');
     datalist.innerHTML = '';
 
-    keys.forEach(key => {
-        // List item with download link
+    for (const key of keys) {
+        const metadataRes = await fetch(`/metadata/${folder}/${key}`);
+        const metadata = await metadataRes.json();
+
         const li = document.createElement('li');
-        li.innerHTML = `<a href="/download/${folder}/${key}">${key}</a>`;
+        li.innerHTML = `
+            <a href="/download/${folder}/${key}">${key}</a>
+            <p>
+                ${metadata.resourcename ? `| ${metadata.resourcename}` : ''}
+                ${metadata.purchasername ? `| ${metadata.purchasername}` : ''}
+                ${metadata.purchasermailbox ? `| ${metadata.purchasermailbox}` : ''}
+            <p>
+        
+        `;
         ul.appendChild(li);
 
-        // Delete datalist option
         const option = document.createElement('option');
         option.value = key;
         datalist.appendChild(option);
-    });
+    };
 }
 
 document.getElementById('resourceSubmission').addEventListener('click', async () => {
     const file = document.getElementById('resourceFile').files[0];
     if (!file) return alert('Please select a file.');
 
+    const resourceName = document.querySelector('#addModal #resourceName');
+    const resourceFile = document.querySelector('#addModal #resourceFile');
+    const purchaserName = document.querySelector('#addModal #purchaserName');
+    const purchaserMailbox = document.querySelector('#addModal #purchaserMailbox');
+
     const formData = new FormData();
-    formData.append('resourceFile', file);
+    formData.append('resourcefile', file);
+    formData.append('resourcename', resourceName.value);
+    formData.append('purchasername', purchaserName.value);
+    formData.append('purchasermailbox', purchaserMailbox.value);
 
     await fetch(`/upload/${folder}`, { method: 'POST', body: formData });
     bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
     loadResources();
 
-    document.querySelector('#addModal #resourceName').value = "";
-    document.querySelector('#addModal #resourceFile').value = "";
-    document.querySelector('#addModal #purchaserName').value = "";
-    document.querySelector('#addModal #purchaserMailbox').value = "";
+    resourceName.value = "";
+    resourceFile.value = null;
+    purchaserName.value = "";
+    purchaserMailbox.value = "";
 });
 
 

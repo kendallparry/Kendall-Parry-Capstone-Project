@@ -85,13 +85,17 @@ def get_files(folder):
 @main.route("/upload/<folder>", methods=['POST'])
 def upload_files(folder):
     f = request.files['resourceFile']
-    upload(f, f.filename, folder)
+    upload(f, f.filename, folder, args=request.form.to_dict())
     return jsonify({'message': 'Uploaded successfully'}), 200
 
 @main.route("/download/<folder>/<filename>", methods=['GET'])
 def download_files(folder, filename):
     output = download(filename, folder)
     return send_file(output, as_attachment=True)
+
+@main.route('/metadata/<folder>/<filename>')
+def get_metadata(folder, filename):
+    return jsonify(get_metadata(filename, folder))
 
 @main.route("/delete/<folder>", methods=['DELETE'])
 def delete_resource(folder):
