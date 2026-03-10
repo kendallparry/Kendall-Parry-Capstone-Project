@@ -65,7 +65,7 @@ async function loadUpcomingEvents() {
 
         // Optional: click an event to show details
         eventClick(info) {
-            alert(`${info.event.title}\n${info.event.startStr} → ${info.event.endStr}`);
+            
         }
     });
 
