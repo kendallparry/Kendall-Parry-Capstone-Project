@@ -19,7 +19,7 @@ function fillEvents(){
         const itemsList = document.createElement('ul');
         date.items.forEach((item, index) => {
             const event = document.createElement('li');
-            event.textContent = `${item.startTime} - ${item.endTime} -- ${item.title}`;
+            event.textContent = `${item.startTime} - ${item.endTime} -- ${item.title} in ${item.location}`;
             event.dataset.dateId = date.id;
             event.dataset.itemIndex = index;
             itemsList.appendChild(event);

@@ -17,8 +17,6 @@ async function loadResources() {
             .map(field => metadata[field])
             .filter(Boolean)
             .join(' | ');
-
-        const linkText = details || key;
         
         const li = document.createElement('li');
         li.innerHTML = `
