@@ -42,7 +42,7 @@ document.getElementById('resourceSubmission').addEventListener('click', async ()
 
     const formData = new FormData();
     formData.append('resourceFile', uniqueFile);
-    formData.append('resourceName');
+    formData.append('resourceName', resourceName);
 
     await fetch(`/upload/${folder}`, { method: 'POST', body: formData });
     bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
