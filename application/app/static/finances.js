@@ -78,7 +78,5 @@ document.getElementById('deleteResource').addEventListener('click', async () => 
     document.getElementById('pickResource').value = "";
 });
 
-loadResources();
-
 
 loadResources();
