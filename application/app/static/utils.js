@@ -45,6 +45,7 @@ export async function loadEvents() {
             dateMap[dateStr] = {
                 id: nextIndex++,
                 date: dateStr,
+                rawDate: row.date,
                 items: []
             };
         }
@@ -52,6 +53,8 @@ export async function loadEvents() {
             event_id: row.event_id,
             startTime: getTimeString(row.start_time),
             endTime: getTimeString(row.end_time),
+            rawStartTime: row.start_time,
+            rawEndTime: row.end_time,
             title: row.title,
             location: row.location,
             notes: row.notes

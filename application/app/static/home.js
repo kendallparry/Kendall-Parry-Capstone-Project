@@ -45,8 +45,8 @@ async function loadUpcomingEvents() {
             fcEvents.push({
                 title: item.title,
                 // Combine date string + time strings, e.g. "2025-06-15T14:00:00"
-                start: `${date.date}T${item.startTime}`,
-                end: `${date.date}T${item.endTime}`,
+                start: `${date.rawDate}T${item.rawStartTime}`,
+                end: `${date.rawDate}T${item.rawEndTime}`,
             });
         });
     });
