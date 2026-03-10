@@ -1,4 +1,5 @@
 const folder = 'resources';
+const fields = ['resourcename'];
 
 async function loadResources() {
     const res = await fetch(`/${folder}/files`);
@@ -9,31 +10,45 @@ async function loadResources() {
     const datalist = document.getElementById('datalistOptions');
     datalist.innerHTML = '';
 
-    keys.forEach(key => {
-        // List item with download link
+    for (const key of keys) {
+        const metadataRes = await fetch(`/metadata/${folder}/${key}`);
+        const metadata = await metadataRes.json();
+
+        const name = metadata['resourcename']
+        
         const li = document.createElement('li');
-        li.innerHTML = `<a href="/download/${folder}/${key}">${key}</a>`;
+        li.innerHTML = `
+            <a href="/download/${folder}/${key}">${name}</a>
+        `;
         ul.appendChild(li);
 
         // Delete datalist option
         const option = document.createElement('option');
-        option.value = key;
+        option.value = name;
         datalist.appendChild(option);
-    });
+    };
 }
 
 document.getElementById('resourceSubmission').addEventListener('click', async () => {
     const file = document.getElementById('resourceFile').files[0];
     if (!file) return alert('Please select a file.');
 
+    //add timestamp to file name to prevent overwriting in bucket
+    const ext = file.name.includes('.') ? '.' + file.name.split('.').pop() : '';
+    const baseName = file.name.replace(/\.[^/.]+$/, '');
+    const uniqueFile = new File([file], `${baseName}_${Date.now()}${ext}`, { type: file.type });
+
+    const resourceName = document.querySelector('#addModal #resourceName');
+
     const formData = new FormData();
-    formData.append('resourceFile', file);
+    formData.append('resourceFile', uniqueFile);
+    formData.append('resourceName');
 
     await fetch(`/upload/${folder}`, { method: 'POST', body: formData });
     bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
     loadResources();
 
-    document.querySelector('#addModal #resourceName').value = "";
+    resourceName.value = "";
     document.querySelector('#addModal #resourceFile').value = "";
 });
 
