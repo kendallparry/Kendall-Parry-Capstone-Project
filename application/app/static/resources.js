@@ -37,7 +37,7 @@ document.getElementById('resourceSubmission').addEventListener('click', async ()
     document.querySelector('#addModal #resourceFile').value = "";
 });
 
-document.getElementById('deleteEvent').addEventListener('click', async () => {
+document.getElementById('deleteResource').addEventListener('click', async () => {
     const key = document.getElementById('pickResource').value;
     if (!key) return alert('Please select a resource.');
 

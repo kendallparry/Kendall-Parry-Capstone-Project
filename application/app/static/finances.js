@@ -62,5 +62,23 @@ document.getElementById('resourceSubmission').addEventListener('click', async ()
     purchaserMailbox.value = "";
 });
 
+document.getElementById('deleteResource').addEventListener('click', async () => {
+    const key = document.getElementById('pickResource').value;
+    if (!key) return alert('Please select a resource.');
+
+    await fetch(`/delete/${folder}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key })
+    });
+
+    bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
+    loadResources();
+
+    document.getElementById('pickResource').value = "";
+});
+
+loadResources();
+
 
 loadResources();
