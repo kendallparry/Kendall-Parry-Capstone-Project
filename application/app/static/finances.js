@@ -20,7 +20,7 @@ async function loadResources() {
             .map(field => metadata[field])
             .filter(Boolean)
             .join(' | ');
-        
+
         const li = document.createElement('li');
         li.innerHTML = `
             <a href="/download/${folder}/${key}">${name}</a>
@@ -30,8 +30,7 @@ async function loadResources() {
 
         // Delete datalist option
         const option = document.createElement('option');
-        option.value = key;
-        option.label = name;
+        option.value = name;
         datalist.appendChild(option);
     };
 }
@@ -49,7 +48,7 @@ document.getElementById('resourceSubmission').addEventListener('click', async ()
     const ext = file.name.includes('.') ? '.' + file.name.split('.').pop() : '';
     const baseName = file.name.replace(/\.[^/.]+$/, '');
     const uniqueFile = new File([file], `${baseName}_${Date.now()}${ext}`, { type: file.type });
-  
+
 
     const formData = new FormData();
     formData.append('resourceFile', uniqueFile);
@@ -68,18 +67,32 @@ document.getElementById('resourceSubmission').addEventListener('click', async ()
 });
 
 document.getElementById('deleteResource').addEventListener('click', async () => {
-    const key = document.getElementById('pickResource').value;
-    if (!key) return alert('Please select a resource.');
+    const name = document.getElementById('pickResource').value;
+    if (!name) return alert('Please select a resource.');
+
+    const res = await fetch(`/${folder}/files`);
+    const keys = await res.json();
+
+    let matchedKey = null;
+    for (const key of keys) {
+        const metadataRes = await fetch(`/metadata/${folder}/${key}`);
+        const metadata = await metadataRes.json();
+        if (metadata['resourcename'] === name) {
+            matchedKey = key;
+            break;
+        }
+    }
+
+    if (!matchedKey) return alert('Resource not found.');
 
     await fetch(`/delete/${folder}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key })
+        body: JSON.stringify({ key: matchedKey })
     });
 
     bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
     loadResources();
-
     document.getElementById('pickResource').value = "";
 });
 
