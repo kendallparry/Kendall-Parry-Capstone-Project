@@ -73,7 +73,7 @@ hr {
 
 /* Toolbar title color */
 .fc-toolbar-title {
-    color: #fff !important;
+    color: #3E2865 !important;
 }
 
 /* Nav button styling */
@@ -89,4 +89,8 @@ hr {
 
 .fc-daygrid-event-dot {
     border-color: #3E2865 !important;
+}
+
+--fc-today {
+    background-color: #E9E0FA;
 }
