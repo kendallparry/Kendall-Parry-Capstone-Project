@@ -24,6 +24,11 @@ async function loadResources() {
             ${details ? ` — ${details}` : ''}
         `;
         ul.appendChild(li);
+
+        // Delete datalist option
+        const option = document.createElement('option');
+        option.value = key;
+        datalist.appendChild(option);
     };
 }
 
