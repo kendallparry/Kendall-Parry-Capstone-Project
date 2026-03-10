@@ -55,10 +55,10 @@ async function loadUpcomingEvents() {
     const calendarEl = document.getElementById('calendar');
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',    // month grid; swap for 'timeGridWeek' or 'listWeek'
+        eventTextColor: '#3E2865',
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,listWeek'
         },
         events: fcEvents,
         height: 'auto',
