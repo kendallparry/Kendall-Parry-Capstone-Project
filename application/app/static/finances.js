@@ -7,6 +7,9 @@ async function loadResources() {
     const ul = document.querySelector('#resourcesList ul');
     ul.innerHTML = '';
 
+    const datalist = document.getElementById('datalistOptions');
+    datalist.innerHTML = '';
+
     for (const key of keys) {
         const metadataRes = await fetch(`/metadata/${folder}/${key}`);
         const metadata = await metadataRes.json();
