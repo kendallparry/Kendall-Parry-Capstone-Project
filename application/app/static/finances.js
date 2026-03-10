@@ -30,7 +30,7 @@ async function loadResources() {
 
         // Delete datalist option
         const option = document.createElement('option');
-        option.value = key;
+        option.value = name;
         datalist.appendChild(option);
     };
 }
