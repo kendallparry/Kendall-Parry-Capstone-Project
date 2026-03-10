@@ -48,3 +48,45 @@ hr {
     --bs-btn-active-bg: #a089c9;
     --bs-btn-active-border-color: #3E2865;
 }
+
+/* CALENDAR CSS */
+
+/* Header row (Mon, Tue, Wed...) */
+.fc-col-header {
+    background-color: #E9E0FA !important;
+}
+
+/* Toolbar (month title + buttons) */
+.fc-toolbar {
+    background-color: #E9E0FA !important;
+}
+
+/* Header text color */
+.fc-col-header-cell-cushion {
+    color: #3E2865 !important;
+}
+
+/* Day number color */
+.fc-daygrid-day-number {
+    color: #3E2865 !important;
+}
+
+/* Toolbar title color */
+.fc-toolbar-title {
+    color: #fff !important;
+}
+
+/* Nav button styling */
+.fc-button {
+    background-color: #3E2865 !important;
+    border-color: #3E2865 !important;
+    color: #fff !important;
+}
+
+.fc-event-title {
+    color: #3E2865 !important;
+}
+
+.fc-daygrid-event-dot {
+    border-color: #3E2865 !important;
+}
