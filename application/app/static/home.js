@@ -56,8 +56,10 @@ async function loadUpcomingEvents() {
     // Sidebar initialization
     const sidebar = document.getElementById('sidebar');
     const eventsList = new FullCalendar.Calendar(sidebar, {
+        headerToolbar: {
+            center: 'listWeek,listMonth'
+        },
         initialView: 'listMonth',
-        duration: {days: 30},
         events: fcEvents,
         height: 'auto',
     });
