@@ -52,13 +52,12 @@ async function loadUpcomingEvents() {
         });
     });
 
-    const sidebarEvents = [];
 
     // Sidebar initialization
     const sidebar = document.getElementById('sidebar');
     const eventsList = new FullCalendar.Calendar(sidebar, {
         initialView: 'listMonth',
-        duration: {days: 4},
+        duration: {days: 30},
         events: fcEvents,
         height: 'auto',
     });
