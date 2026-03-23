@@ -14,7 +14,7 @@ async function loadUpcomingEvents() {
         const itemsUl = document.createElement('ul');
         date.items.forEach(item => {
             const li = document.createElement('li');
-            li.textContent = `${item.title}`;
+            li.textContent = `${item.startTime} ${item.title}`;
             itemsUl.appendChild(li);
         });
         upcomingUl.appendChild(itemsUl);
@@ -54,7 +54,7 @@ async function loadUpcomingEvents() {
     // --- Initialize FullCalendar ---
     const calendarEl = document.getElementById('calendar');
     const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',    // month grid; swap for 'timeGridWeek' or 'listWeek'
+        initialView: 'dayGridMonth',
         eventTextColor: '#3E2865',
         headerToolbar: {
             left: 'prev,next today',

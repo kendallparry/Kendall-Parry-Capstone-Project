@@ -85,6 +85,10 @@ document.getElementById('deleteResource').addEventListener('click', async () => 
 
     if (!matchedKey) return alert('Resource not found.');
 
+    if (!confirm("Are you sure you want to delete this receipt?")){
+        return;
+    }
+
     await fetch(`/delete/${folder}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },

@@ -41,6 +41,10 @@ document.getElementById('deleteEvent').addEventListener('click', async () => {
     const key = document.getElementById('pickResource').value;
     if (!key) return alert('Please select a resource.');
 
+    if (!confirm("Are you sure you want to delete this resource?")){
+        return;
+    }
+
     await fetch(`/delete/${folder}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
