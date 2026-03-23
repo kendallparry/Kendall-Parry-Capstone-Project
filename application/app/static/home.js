@@ -3,22 +3,23 @@ import { getTimeString, getDateString, loadEvents } from './utils.js';
 async function loadUpcomingEvents() {
     const data = await loadEvents();
 
-    //load sidebar events list
-    const upcomingUl = document.querySelector('#upcoming ul');
-    upcomingUl.innerHTML = '';
-    data.forEach(date => {
-        const dateLi = document.createElement('li');
-        dateLi.textContent = date.date;
-        upcomingUl.appendChild(dateLi);
+    // //load sidebar events list
+    // const upcomingUl = document.querySelector('#upcoming ul');
+    // upcomingUl.innerHTML = '';
 
-        const itemsUl = document.createElement('ul');
-        date.items.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = `${item.startTime} ${item.title}`;
-            itemsUl.appendChild(li);
-        });
-        upcomingUl.appendChild(itemsUl);
-    });
+    // data.forEach(date => {
+    //     const dateLi = document.createElement('li');
+    //     dateLi.textContent = date.date;
+    //     upcomingUl.appendChild(dateLi);
+
+    //     const itemsUl = document.createElement('ul');
+    //     date.items.forEach(item => {
+    //         const li = document.createElement('li');
+    //         li.textContent = `${item.startTime} ${item.title}`;
+    //         itemsUl.appendChild(li);
+    //     });
+    //     upcomingUl.appendChild(itemsUl);
+    // });
 
     // //load main events list
     // const ul = document.querySelector('#eventsList ul');
@@ -38,24 +39,36 @@ async function loadUpcomingEvents() {
     //     ul.appendChild(itemsUl);
     // });
 
-    // --- Convert your data format to FullCalendar events ---
+    // --- Convert event data to FullCalendar format ---
     const fcEvents = [];
     data.forEach(date => {
         date.items.forEach(item => {
             fcEvents.push({
                 title: item.title,
-                // Combine date string + time strings, e.g. "2025-06-15T14:00:00"
+                // Combine date and times to match FullCalendar format
                 start: `${date.rawDate}T${item.rawStartTime}`,
                 end: `${date.rawDate}T${item.rawEndTime}`,
             });
         });
     });
 
-    // --- Initialize FullCalendar ---
+    const sidebarEvents = [];
+
+    // Sidebar initialization
+    const sidebar = document.getElementById('sidebar');
+    const eventsList = new FullCalendar.Calendar(sidebar, {
+        initialView: 'listMonth',
+        duration: {days: 4},
+        events: fcEvents,
+        height: 'auto',
+    });
+    
+    
+
+    // Calendar initialization
     const calendarEl = document.getElementById('calendar');
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        eventTextColor: '#3E2865',
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
@@ -70,7 +83,7 @@ async function loadUpcomingEvents() {
     });
 
     calendar.render();
-
+    eventsList.render();
 }
 
 document.addEventListener("DOMContentLoaded", loadUpcomingEvents);
