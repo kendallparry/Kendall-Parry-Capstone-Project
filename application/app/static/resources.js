@@ -56,6 +56,10 @@ document.getElementById('deleteResource').addEventListener('click', async () => 
     const name = document.getElementById('pickResource').value;
     if (!name) return alert('Please select a resource.');
 
+    if (!confirm("Are you sure you want to delete this resource?")){
+        return;
+    }
+
     const res = await fetch(`/${folder}/files`);
     const keys = await res.json();
 
@@ -70,9 +74,6 @@ document.getElementById('deleteResource').addEventListener('click', async () => 
     }
 
     if (!matchedKey) return alert('Resource not found.');
-    if (!confirm("Are you sure you want to delete this resource?")){
-        return;
-    }
 
     await fetch(`/delete/${folder}`, {
         method: 'DELETE',
