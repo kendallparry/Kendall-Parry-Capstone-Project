@@ -57,7 +57,7 @@ async function loadUpcomingEvents() {
     const sidebar = document.getElementById('sidebar');
     const eventsList = new FullCalendar.Calendar(sidebar, {
         headerToolbar: {
-            center: 'listWeek,listMonth'
+            
         },
         initialView: 'listMonth',
         events: fcEvents,
