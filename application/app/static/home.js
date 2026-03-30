@@ -50,6 +50,7 @@ async function loadUpcomingEvents() {
         height: 'auto',
 
         eventMouseEnter(info){
+            console.log('hover fired', info.event.title); // confirm handler fires
             const { location, notes, startTime, endTime } = info.event.extendedProps;
             const tooltipContent = `
                 <strong>${info.event.title}</strong><br>
@@ -61,7 +62,7 @@ async function loadUpcomingEvents() {
             const existing = bootstrap.Tooltip.getInstance(info.el);
             if (existing) existing.dispose();            
             
-            var tooltip = new Tooltip(info.el, {
+            var tooltip = new bootstrap.Tooltip(info.el, {
                 title: tooltipContent,
                 html: true,
                 placement: 'top',
