@@ -17,15 +17,18 @@ async function loadResources() {
         const name = metadata['resourcename']
 
         const li = document.createElement('li');
-        li.innerHTML = `
-            <a href="/download/${folder}/${key}">${name}</a>
-        `;
-        ul.appendChild(li);
+        const link = document.createElement('a');
+        link.href = `/download/${folder}/${key}`;
+        link.textContent = name;
 
-        // Delete datalist option
-        const option = document.createElement('option');
-        option.value = name;
-        datalist.appendChild(option);
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.className = 'btn btn-sm btn-outline-danger ms-2';
+        deleteButton.addEventListener('click', () => deleteResource(key));
+
+        li.appendChild(link);
+        li.appendChild(deleteButton);
+        ul.appendChild(li);
     };
 }
 
@@ -52,38 +55,14 @@ document.getElementById('resourceSubmission').addEventListener('click', async ()
     document.querySelector('#addModal #resourceFile').value = "";
 });
 
-document.getElementById('deleteResource').addEventListener('click', async () => {
-    const name = document.getElementById('pickResource').value;
-    if (!name) return alert('Please select a resource.');
-
-    if (!confirm("Are you sure you want to delete this resource?")){
-        return;
-    }
-
-    const res = await fetch(`/${folder}/files`);
-    const keys = await res.json();
-
-    let matchedKey = null;
-    for (const key of keys) {
-        const metadataRes = await fetch(`/metadata/${folder}/${key}`);
-        const metadata = await metadataRes.json();
-        if (metadata['resourcename'] === name) {
-            matchedKey = key;
-            break;
-        }
-    }
-
-    if (!matchedKey) return alert('Resource not found.');
-
+async function deleteResource(key) {
+    if (!confirm("Are you sure you want to delete this resource?")) return;
     await fetch(`/delete/${folder}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key: matchedKey })
+        body: JSON.stringify({ key })
     });
-
-    bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
     loadResources();
-    document.getElementById('pickResource').value = "";
-});
+}
 
 loadResources();

@@ -31,24 +31,7 @@ function fillEvents(){
         });
         eventsList.appendChild(itemsList);
     });
-
-    // updateEvents();
 }
-
-// function updateEvents(){
-//     const datalist = document.getElementById("datalistOptions");
-//     datalist.innerHTML = '';
-
-//     events.forEach(date =>{
-//         date.items.forEach((item, index) => {
-//             const option = document.createElement('option');
-//             option.value = `${date.date} ${item.startTime} - ${item.endTime} -- ${item.title}`;
-//             option.dataset.dateId = date.id;
-//             option.dataset.itemIndex = index;
-//             datalist.appendChild(option);
-//         });
-//     })
-// } 
 
 const eventSubmissionButton = document.getElementById("eventSubmission");
 
@@ -120,7 +103,6 @@ document.getElementById('saveChanges').addEventListener('click', async function(
     document.querySelector('#editModal #endTime').value = "";
     document.querySelector('#editModal #eventLocation').value = "";
     document.querySelector('#editModal #eventNotes').value = "";
-    // document.getElementById('pickEvent').value = "";
 
     await refresh();
     const modalInstance = bootstrap.Modal.getInstance(modal);
@@ -146,7 +128,6 @@ document.getElementById('deleteEvent').addEventListener('click', async function(
     document.querySelector('#editModal #endTime').value = "";
     document.querySelector('#editModal #eventLocation').value = "";
     document.querySelector('#editModal #eventNotes').value = "";
-    // document.getElementById('pickEvent').value = "";
 
     await refresh();
     const modalInstance = bootstrap.Modal.getInstance(modal);
