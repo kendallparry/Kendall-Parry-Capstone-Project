@@ -6,7 +6,7 @@ async function loadResources() {
     const keys = await res.json();
     const ul = document.querySelector('#resourcesList ul');
     ul.innerHTML = '';
-    
+
     for (const key of keys) {
         const metadataRes = await fetch(`/metadata/${folder}/${key}`);
         const metadata = await metadataRes.json();
@@ -38,6 +38,8 @@ document.getElementById('resourceSubmission').addEventListener('click', async ()
     formData.append('resourceFile', file);
     const resourceName = document.querySelector('#addModal #resourceName');
     formData.append('resourceName', resourceName.value);
+
+    console.log(resourceName.value);
 
     await fetch(`/upload/${folder}`, { method: 'POST', body: formData });
     bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
