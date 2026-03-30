@@ -79,7 +79,7 @@ async function loadUpcomingEvents() {
                     tooltip.dispose();
                 }
             } catch (e) {
-                // Element was removed from DOM before tooltip could clean up
+                // tooltip already gone
             }
         },
 

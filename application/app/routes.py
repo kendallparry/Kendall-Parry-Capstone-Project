@@ -111,6 +111,10 @@ def delete_resource(folder):
 def home():
     return render_template('home.html')
 
+@main.route("/login")
+def login():
+    return render_template('login.html')
+
 @main.route("/events")
 def events():
     return render_template('events.html')
