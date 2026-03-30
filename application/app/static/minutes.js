@@ -15,6 +15,7 @@ async function loadResources() {
         const metadata = await metadataRes.json();
 
         const name = metadata['resourcename']
+        console.log(name);
 
         const li = document.createElement('li');
         const link = document.createElement('a');
