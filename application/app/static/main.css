@@ -49,6 +49,10 @@ hr {
     --bs-btn-active-border-color: #3E2865;
 }
 
+#loginForm {
+    width: 25%;
+}
+
 /* CALENDAR CSS */
 
 /* Header row (Mon, Tue, Wed...) */
