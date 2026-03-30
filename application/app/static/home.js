@@ -57,14 +57,26 @@ async function loadUpcomingEvents() {
                 ${location}
                 ${notes ? `<br>${notes}` : ""}
                 `
+
+            const existing = bootstrap.Tooltip.getInstance(info.el);
+            if (existing) existing.dispose();            
+            
             var tooltip = new Tooltip(info.el, {
                 title: tooltipContent,
                 html: true,
                 placement: 'top',
-                trigger: 'hover',
+                trigger: 'manual',
                 container: 'body'
             });
-            Tooltip.getInstance(info.el)?.show();
+            tooltip.show();
+        },
+
+        eventMouseLeave(info) {
+            const tooltip = bootstrap.Tooltip.getInstance(info.el);
+            if (tooltip) {
+                tooltip.hide();
+                tooltip.dispose();
+            }
         },
 
         //click an event to go to the events page
