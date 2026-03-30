@@ -3,42 +3,6 @@ import { getTimeString, getDateString, loadEvents } from './utils.js';
 async function loadUpcomingEvents() {
     const data = await loadEvents();
 
-    // //load sidebar events list
-    // const upcomingUl = document.querySelector('#upcoming ul');
-    // upcomingUl.innerHTML = '';
-
-    // data.forEach(date => {
-    //     const dateLi = document.createElement('li');
-    //     dateLi.textContent = date.date;
-    //     upcomingUl.appendChild(dateLi);
-
-    //     const itemsUl = document.createElement('ul');
-    //     date.items.forEach(item => {
-    //         const li = document.createElement('li');
-    //         li.textContent = `${item.startTime} ${item.title}`;
-    //         itemsUl.appendChild(li);
-    //     });
-    //     upcomingUl.appendChild(itemsUl);
-    // });
-
-    // //load main events list
-    // const ul = document.querySelector('#eventsList ul');
-    // ul.innerHTML = '';
-
-    // data.forEach(date => {
-    //     const dateLi = document.createElement('li');
-    //     dateLi.textContent = date.date;
-    //     ul.appendChild(dateLi);
-
-    //     const itemsUl = document.createElement('ul');
-    //     date.items.forEach(item => {
-    //         const li = document.createElement('li');
-    //         li.textContent = `${item.startTime} - ${item.endTime} -- ${item.title}`;
-    //         itemsUl.appendChild(li);
-    //     });
-    //     ul.appendChild(itemsUl);
-    // });
-
     // --- Convert event data to FullCalendar format ---
     const fcEvents = [];
     data.forEach(date => {
@@ -48,6 +12,12 @@ async function loadUpcomingEvents() {
                 // Combine date and times to match FullCalendar format
                 start: `${date.rawDate}T${item.rawStartTime}`,
                 end: `${date.rawDate}T${item.rawEndTime}`,
+                extendedProps: {
+                    location: item.location,
+                    notes: item.notes,
+                    startTime: item.startTime,
+                    endTime: item.endTime,
+                }
             });
         });
     });
@@ -79,9 +49,27 @@ async function loadUpcomingEvents() {
         events: fcEvents,
         height: 'auto',
 
-        // Optional: click an event to show details
+        eventMouseEnter(info){
+            const { location, notes, startTime, endTime } = info.event.extendedProps;
+            const tooltipContent = `
+                <strong>${info.event.title}</strong><br>
+                ${startTime} - ${endTime}<br>
+                ${location}
+                ${notes ? `<br>${notes}` : ""}
+                `
+            var tooltip = new Tooltip(info.el, {
+                title: tooltipContent,
+                html: true,
+                placement: 'top',
+                trigger: 'hover',
+                container: 'body'
+            });
+            Tooltip.getInstance(info.el)?.show();
+        },
+
+        //click an event to go to the events page
         eventClick(info) {
-            
+            window.location.href = '/events';
         }
     });
 
