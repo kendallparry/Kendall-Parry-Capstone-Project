@@ -92,7 +92,7 @@ function openEditModal(date, item, index) {
     modal.dataset.editDateId = date.id;
     modal.dataset.editItemIndex = index;
 
-    bootstrap.Modal.getInstance(document.getElementById('editModal')).show();
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
 }
 
 document.getElementById('saveChanges').addEventListener('click', async function() {
