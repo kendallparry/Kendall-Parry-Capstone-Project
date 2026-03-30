@@ -80,40 +80,6 @@ eventSubmissionButton.addEventListener("click", async function(e){
     modalInstance.hide();
 });
 
-// document.getElementById('pickEvent').addEventListener('input', function(){
-//     const selected = this.value;
-
-//     let selectedEvent;
-//     let selectedDateId;
-//     let selectedDate;
-//     let selectedItemIndex;
-
-//     events.forEach(date => {
-//         date.items.forEach((item, index) => {
-//             const eventString = `${date.date} ${item.startTime} - ${item.endTime} -- ${item.title}`;
-//             if (eventString === selected) {
-//                 selectedEvent = item;
-//                 selectedDateId = date.id;
-//                 selectedItemIndex = index;
-//                 selectedDate = date.date;
-//             }
-//         });
-//     });
-
-//     if (selectedEvent) {
-//         const modal = document.getElementById('editModal');
-//         modal.querySelector('#eventTitle').value = selectedEvent.title;
-//         modal.querySelector('#eventDate').value = parseDateString(selectedDate);
-//         modal.querySelector('#startTime').value = parseTimeString(selectedEvent.startTime);
-//         modal.querySelector('#endTime').value = parseTimeString(selectedEvent.endTime);
-//         modal.querySelector('#eventLocation').value = selectedEvent.location;
-//         modal.querySelector('#eventNotes').value = selectedEvent.notes;
-
-//         modal.dataset.editDateId = selectedDateId;
-//         modal.dataset.editItemIndex = selectedItemIndex;
-//     }
-// });
-
 function openEditModal(date, item, index) {
     const modal = document.getElementById('editModal');
     modal.querySelector('#eventTitle').value = item.title;
