@@ -1,7 +1,6 @@
 import { getTimeString, getDateString, parseDateString, parseTimeString, loadEvents } from './utils.js';
 
 let events = [];
-let nextIndex = 1;
 
 async function refresh() {
     events = await loadEvents();
@@ -22,28 +21,35 @@ function fillEvents(){
             event.textContent = `${item.startTime} - ${item.endTime} -- ${item.title} (${item.location})`;
             event.dataset.dateId = date.id;
             event.dataset.itemIndex = index;
+
+            const editButton = document.createElement('button');
+            editButton.textContent = "Edit";
+            editButton.className = 'btn btn-sm btn-outline-primary ms-2';
+            editButton.addEventListener('click', () => openEditModal(date, item, index));
+            event.appendChild(editButton);
             itemsList.appendChild(event);
         });
         eventsList.appendChild(itemsList);
     });
 
-    updateEvents();
+    // updateEvents();
 }
 
-function updateEvents(){
-    const datalist = document.getElementById("datalistOptions");
-    datalist.innerHTML = '';
+// function updateEvents(){
+//     const datalist = document.getElementById("datalistOptions");
+//     datalist.innerHTML = '';
 
-    events.forEach(date =>{
-        date.items.forEach((item, index) => {
-            const option = document.createElement('option');
-            option.value = `${date.date} ${item.startTime} - ${item.endTime} -- ${item.title}`;
-            option.dataset.dateId = date.id;
-            option.dataset.itemIndex = index;
-            datalist.appendChild(option);
-        });
-    })
-} 
+//     events.forEach(date =>{
+//         date.items.forEach((item, index) => {
+//             const option = document.createElement('option');
+//             option.value = `${date.date} ${item.startTime} - ${item.endTime} -- ${item.title}`;
+//             option.dataset.dateId = date.id;
+//             option.dataset.itemIndex = index;
+//             datalist.appendChild(option);
+//         });
+//     })
+// } 
+
 const eventSubmissionButton = document.getElementById("eventSubmission");
 
 eventSubmissionButton.addEventListener("click", async function(e){
@@ -74,39 +80,54 @@ eventSubmissionButton.addEventListener("click", async function(e){
     modalInstance.hide();
 });
 
-document.getElementById('pickEvent').addEventListener('input', function(){
-    const selected = this.value;
+// document.getElementById('pickEvent').addEventListener('input', function(){
+//     const selected = this.value;
 
-    let selectedEvent;
-    let selectedDateId;
-    let selectedDate;
-    let selectedItemIndex;
+//     let selectedEvent;
+//     let selectedDateId;
+//     let selectedDate;
+//     let selectedItemIndex;
 
-    events.forEach(date => {
-        date.items.forEach((item, index) => {
-            const eventString = `${date.date} ${item.startTime} - ${item.endTime} -- ${item.title}`;
-            if (eventString === selected) {
-                selectedEvent = item;
-                selectedDateId = date.id;
-                selectedItemIndex = index;
-                selectedDate = date.date;
-            }
-        });
-    });
+//     events.forEach(date => {
+//         date.items.forEach((item, index) => {
+//             const eventString = `${date.date} ${item.startTime} - ${item.endTime} -- ${item.title}`;
+//             if (eventString === selected) {
+//                 selectedEvent = item;
+//                 selectedDateId = date.id;
+//                 selectedItemIndex = index;
+//                 selectedDate = date.date;
+//             }
+//         });
+//     });
 
-    if (selectedEvent) {
-        const modal = document.getElementById('editModal');
-        modal.querySelector('#eventTitle').value = selectedEvent.title;
-        modal.querySelector('#eventDate').value = parseDateString(selectedDate);
-        modal.querySelector('#startTime').value = parseTimeString(selectedEvent.startTime);
-        modal.querySelector('#endTime').value = parseTimeString(selectedEvent.endTime);
-        modal.querySelector('#eventLocation').value = selectedEvent.location;
-        modal.querySelector('#eventNotes').value = selectedEvent.notes;
+//     if (selectedEvent) {
+//         const modal = document.getElementById('editModal');
+//         modal.querySelector('#eventTitle').value = selectedEvent.title;
+//         modal.querySelector('#eventDate').value = parseDateString(selectedDate);
+//         modal.querySelector('#startTime').value = parseTimeString(selectedEvent.startTime);
+//         modal.querySelector('#endTime').value = parseTimeString(selectedEvent.endTime);
+//         modal.querySelector('#eventLocation').value = selectedEvent.location;
+//         modal.querySelector('#eventNotes').value = selectedEvent.notes;
 
-        modal.dataset.editDateId = selectedDateId;
-        modal.dataset.editItemIndex = selectedItemIndex;
-    }
-});
+//         modal.dataset.editDateId = selectedDateId;
+//         modal.dataset.editItemIndex = selectedItemIndex;
+//     }
+// });
+
+function openEditModal(date, item, index) {
+    const modal = document.getElementById('editModal');
+    modal.querySelector('#eventTitle').value = item.title;
+    modal.querySelector('#eventDate').value = parseDateString(date.date);
+    modal.querySelector('#startTime').value = parseTimeString(item.startTime);
+    modal.querySelector('#endTime').value = parseTimeString(item.endTime);
+    modal.querySelector('#eventLocation').value = item.location;
+    modal.querySelector('#eventNotes').value = item.notes;
+
+    modal.dataset.editDateId = date.id;
+    modal.dataset.editItemIndex = index;
+
+    bootstrap.Modal.getOrCreate(document.getElementById('editModal')).show();
+}
 
 document.getElementById('saveChanges').addEventListener('click', async function() {
     const modal = document.getElementById('editModal');
@@ -133,7 +154,7 @@ document.getElementById('saveChanges').addEventListener('click', async function(
     document.querySelector('#editModal #endTime').value = "";
     document.querySelector('#editModal #eventLocation').value = "";
     document.querySelector('#editModal #eventNotes').value = "";
-    document.getElementById('pickEvent').value = "";
+    // document.getElementById('pickEvent').value = "";
 
     await refresh();
     const modalInstance = bootstrap.Modal.getInstance(modal);
@@ -159,7 +180,7 @@ document.getElementById('deleteEvent').addEventListener('click', async function(
     document.querySelector('#editModal #endTime').value = "";
     document.querySelector('#editModal #eventLocation').value = "";
     document.querySelector('#editModal #eventNotes').value = "";
-    document.getElementById('pickEvent').value = "";
+    // document.getElementById('pickEvent').value = "";
 
     await refresh();
     const modalInstance = bootstrap.Modal.getInstance(modal);
