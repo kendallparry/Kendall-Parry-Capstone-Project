@@ -99,3 +99,15 @@ hr {
 .fc-day-today {
     background-color: #E9E0FA !important;
 }
+
+.fc-list-day {
+    background-color: #3E2865 !important;
+}
+
+.fc-list-day-text {
+    color: #fff;
+}
+
+.fc-list-day-side-text {
+    color: #fff;
+}
