@@ -1,4 +1,4 @@
-import { getTimeString, getDateString, parseDateString, parseTimeString, loadEvents } from './utils.js';
+import { parseDateString, parseTimeString, loadEvents } from './utils.js';
 
 let events = [];
 

@@ -5,7 +5,7 @@ from .s3 import *
 
 main = Blueprint("main", __name__)
 
-# RDS ROUTES
+# DB CONNECTION
 def get_db():
     return mysql.connector.connect(
         host=os.getenv('DB_HOST'),
@@ -15,6 +15,7 @@ def get_db():
         database=os.getenv('DB_NAME')
     )
 
+# EVENTS DATABASE ROUTES
 @main.route("/api/events")
 def get_events():
     conn = get_db()
@@ -76,6 +77,84 @@ def delete_event(event_id):
         cursor.close()
         conn.close()
     return jsonify({'success': True})
+
+# EVENTS DATABASE ROUTES
+@main.route("/api/users")
+def get_users():
+    conn = get_db()
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM users ORDER BY email")
+        roles = cursor.fetchall()
+    finally:
+        cursor.close()
+        conn.close()
+    return jsonify(roles)
+
+@main.route("/api/users", methods=["POST"])
+def create_user():
+    data = request.get_json()
+    conn = get_db()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO users (email, role)
+            VALUES (%s, %s)
+            ON DUPLICATE KEY UPDATE role=%s
+        """, (data['email'], data['role'], data['role']))
+        conn.commit()
+        row_id = cursor.lastrowid
+    finally:
+        cursor.close()
+        conn.close()
+    return jsonify({'id': row_id}), 201
+
+@main.route("/api/users/<int:user_id>", methods=["PUT"])
+def update_user(user_id):
+    data = request.get_json()
+    conn = get_db()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE users SET email=%s, role=%s
+            WHERE id=%s
+        """, (data['email'], data['role'], user_id))
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
+    return jsonify({'success': True})
+
+@main.route("/api/users/<int:user_id>", methods=["DELETE"])
+def delete_user(user_id):
+    conn = get_db()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM users WHERE id=%s", (user_id,))
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
+    return jsonify({'success': True})
+
+@main.route("/api/login", methods=["POST"])
+def login_user():
+    data = request.get_json()
+    email = data.get('email')
+    conn = get_db()
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+        user = cursor.fetchone()
+    finally:
+        cursor.close()
+        conn.close()
+
+    if not user:
+        return jsonify({'error': 'Email not recognized'}), 401
+
+    return jsonify({'email': user['email'], 'role': user['role']}), 200
+
 
 # S3 ROUTES
 @main.route("/<folder>/files", methods=['GET'])
