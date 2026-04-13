@@ -20,11 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         sessionStorage.setItem('email', data.email);
         sessionStorage.setItem('role', data.role);
 
-        if (data.role === 'admin') {
-            window.location.href = '/settings';
-        } else {
-            window.location.href = '/';
-        }
+        window.location.href = '/';
 
     } catch (err) {
         alert('Something went wrong. Please try again.');
