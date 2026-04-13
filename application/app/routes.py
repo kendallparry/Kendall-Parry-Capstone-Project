@@ -84,7 +84,7 @@ def get_users():
     conn = get_db()
     try:
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM users ORDER BY email")
+        cursor.execute("SELECT * FROM user_roles ORDER BY email")
         roles = cursor.fetchall()
     finally:
         cursor.close()
@@ -98,7 +98,7 @@ def create_user():
     try:
         cursor = conn.cursor()
         cursor.execute("""
-            INSERT INTO users (email, role)
+            INSERT INTO user_roles (email, role)
             VALUES (%s, %s)
             ON DUPLICATE KEY UPDATE role=%s
         """, (data['email'], data['role'], data['role']))
@@ -116,7 +116,7 @@ def update_user(user_id):
     try:
         cursor = conn.cursor()
         cursor.execute("""
-            UPDATE users SET email=%s, role=%s
+            UPDATE user_roles SET email=%s, role=%s
             WHERE id=%s
         """, (data['email'], data['role'], user_id))
         conn.commit()
@@ -130,7 +130,7 @@ def delete_user(user_id):
     conn = get_db()
     try:
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM users WHERE id=%s", (user_id,))
+        cursor.execute("DELETE FROM user_roles WHERE id=%s", (user_id,))
         conn.commit()
     finally:
         cursor.close()
@@ -144,7 +144,7 @@ def login_user():
     conn = get_db()
     try:
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+        cursor.execute("SELECT * FROM user_roles WHERE email=%s", (email,))
         user = cursor.fetchone()
     finally:
         cursor.close()
