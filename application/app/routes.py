@@ -213,3 +213,7 @@ def finances():
 @main.route("/minutes")
 def minutes():
     return render_template('minutes.html')
+
+@main.route("/curtaincall")
+def curtaincall():
+    return render_template("curtaincall.html")
