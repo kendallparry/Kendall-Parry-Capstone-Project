@@ -214,6 +214,6 @@ def finances():
 def minutes():
     return render_template('minutes.html')
 
-@main.route("/curtaincall")
-def curtaincall():
-    return render_template("curtaincall.html")
+@main.route("/sketch")
+def sketch():
+    return render_template("sketch.html")
