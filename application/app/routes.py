@@ -78,7 +78,7 @@ def delete_event(event_id):
         conn.close()
     return jsonify({'success': True})
 
-# EVENTS DATABASE ROUTES
+# USERS DATABASE ROUTES
 @main.route("/api/users")
 def get_users():
     conn = get_db()
@@ -215,5 +215,5 @@ def minutes():
     return render_template('minutes.html')
 
 @main.route("/sketch")
-def sketch():
-    return render_template("sketch.html")
+def program():
+    return render_template("program.html")
